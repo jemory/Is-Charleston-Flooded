@@ -1,0 +1,108 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800,300italic,400italic,600italic,700italic,800italic' rel='stylesheet' type='text/css'>
+
+  <style>
+  	body {
+  		padding:0;
+  		margin:0;
+  		font-family: "Open Sans", Helvetica, sans-serif;
+  		font: 1em;
+  		color:#555;
+  	}
+
+  	#head {
+  		width:100%;
+  		text-align: center;
+  		background-color: #FFF;
+  		margin:0;
+  		padding-top: 4em;
+  	}
+  	#head > h1 {
+  		margin:0;
+  		font-size: 6em;
+  		font-weight: 600;
+  	}
+  	#weather {
+  		width:100%;
+  		text-align: center;
+  		font-weight: 100;
+  		font-size: 4em;
+  		padding-top: 0;
+  		margin-top: 0;
+  	}
+  	.code {
+  		font-size: 0.3em;
+  		font-weight: 400;
+  	}
+  	.dry {
+  		color: #FFF;
+  		background-color: rgb(198,156,109);
+  		padding-top: 1em;
+  	}
+  	.dryBody {
+  		background-color: rgb(198,156,109);
+  	}
+  	.flood {
+  		color:#FFF;
+  		background-image: url('waveBkg.png');
+  		background-color: rgb(41,171,226);
+  		background-repeat: repeat-x;
+  		padding-top: 1em;
+  	}
+  	.floodBody {
+  		background-color: rgb(41,171,226);
+  	}
+  </style>
+</head>
+
+<body>
+	<div id="head">
+		<h1>Charleston is</h1>
+	</div>
+	<div id="weather"></div>
+
+	<script src="jquery.simpleWeather-2.2.min.js"></script>
+	<script>
+		$(function() {
+			$.simpleWeather({
+				zipcode: '',
+				woeid: '2378319',
+				location: '',
+				unit: 'f',
+				success: function(weather) {
+					var codeNum = parseInt(weather.code);
+					if (codeNum > 0 && codeNum <= 4) {
+						html = "<div class='flood'>Probably flooded.</div>";
+						body = "floodBody";
+					} else if (codeNum === 35) {
+						html = "<div class='flood'>Probably flooded.</div>";
+						body = "floodBody";
+					} else if (codeNum >= 37 && codeNum <= 40) {
+						html = "<div class='flood'>Probably flooded.</div>";
+						body = "floodBody";
+					} else if (codeNum === 45) {
+						html = "<div class='flood'>Probably flooded.</div>";
+						body = "floodBody";
+					} else if (codeNum === 47) {
+						html = "<div class='flood'>Probably flooded.</div>";
+						body = "floodBody";
+					} else {
+						html = "<div class='dry'>Probably not flooded.</div>";
+						body = "dryBody";
+					}
+					html += "<p class='code'>Weather Code: "+weather.code+"</p>";
+
+					$("#weather").html(html);
+					$("body").addClass(body);
+				},
+				error: function(error) {
+					$("#weather").html('error');
+				}
+			});
+		});
+	</script>
+	</body>
+</html>
